@@ -14,6 +14,9 @@ namespace CovidDashboard
     public class Startup
     {
         public static string ConnectionString { get; private set; }
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +27,16 @@ namespace CovidDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyHeader();
+                                      builder.AllowAnyOrigin();
+                                  });
+            });
+
             services.AddControllers().AddXmlDataContractSerializerFormatters();
 
             services.AddScoped<ICovidObservationsDataRepository, CovidObservationsDataRepository>();
@@ -50,11 +63,14 @@ namespace CovidDashboard
 
             app.UseRouting();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers()
+                .RequireCors(MyAllowSpecificOrigins);
             });
         }
     }

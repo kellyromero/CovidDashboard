@@ -1,6 +1,6 @@
 ﻿namespace CovidDashboard.Models
 {
-    public class CovidObservationsDatumDto
+    public class CovidObservationDatumDto
     {
         public string Country { get; set; }
 

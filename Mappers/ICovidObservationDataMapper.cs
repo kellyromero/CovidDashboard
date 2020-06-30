@@ -6,8 +6,14 @@ namespace CovidDashboard.Mappers
 {
     public interface ICovidObservationDataMapper
     {
-        CovidObservationsDatumDto ToCovidCaseDataDto(CovidObservationDatum entity);
+        CovidObservationDatumDto ToCovidCaseDataDto(CovidObservationDatum entity);
 
-        IEnumerable<CovidObservationsDatumDto> ToCovidCaseDataListDto(IEnumerable<CovidObservationDatum> entities);
+        IEnumerable<CovidObservationDatumDto> ToCovidCaseDataListDto(IEnumerable<CovidObservationDatum> entities);
+
+        CovidObservationDatum ToCovidObservationDatum(CovidObservationDatumInputDto covidObservationDatum);
+
+        CovidObservationDatum ToCovidObservationDatum(CovidObservationDatumUpdateDto covidObservationDatum);
+
+        IEnumerable<CovidObservationDatum> ToObservationCollection(IEnumerable<CovidObservationDatumInputDto> observationCollection);
     }
 }

@@ -6,9 +6,9 @@ namespace CovidDashboard.Mappers
 {
     public class CovidObservationDataMapper : ICovidObservationDataMapper
     {
-        public CovidObservationsDatumDto ToCovidCaseDataDto(CovidObservationDatum entity)
+        public CovidObservationDatumDto ToCovidCaseDataDto(CovidObservationDatum entity)
         {
-            var dto = new CovidObservationsDatumDto()
+            var dto = new CovidObservationDatumDto()
             {
                 Country = entity.Country,
                 Confirmed = entity.Confirmed,
@@ -19,13 +19,13 @@ namespace CovidDashboard.Mappers
             return dto;
         }
 
-        public IEnumerable<CovidObservationsDatumDto> ToCovidCaseDataListDto(IEnumerable<CovidObservationDatum> entities)
+        public IEnumerable<CovidObservationDatumDto> ToCovidCaseDataListDto(IEnumerable<CovidObservationDatum> entities)
         {
-            var covidCaseDataListDto = new List<CovidObservationsDatumDto>();
+            var covidCaseDataListDto = new List<CovidObservationDatumDto>();
 
             foreach (var entity in entities)
             {
-                var dto = new CovidObservationsDatumDto()
+                var dto = new CovidObservationDatumDto()
                 {
                     Country = entity.Country,
                     Confirmed = entity.Confirmed,
@@ -37,6 +37,61 @@ namespace CovidDashboard.Mappers
             }
 
             return covidCaseDataListDto;
+        }
+
+        public CovidObservationDatum ToCovidObservationDatum(CovidObservationDatumInputDto covidObservationDatum)
+        {
+            var entity = new CovidObservationDatum()
+            {
+                ObservationDate = covidObservationDatum.ObservationDate,
+                ProvinceState = covidObservationDatum.ProvinceState,
+                Country = covidObservationDatum.Country,
+                LastUpdate = covidObservationDatum.LastUpdate,
+                Confirmed = covidObservationDatum.Confirmed,
+                Deaths = covidObservationDatum.Deaths,
+                Recovered = covidObservationDatum.Recovered
+            };
+
+            return entity;
+        }
+
+        public CovidObservationDatum ToCovidObservationDatum(CovidObservationDatumUpdateDto covidObservationDatum)
+        {
+            var entity = new CovidObservationDatum()
+            {
+                ObservationDate = covidObservationDatum.ObservationDate,
+                ProvinceState = covidObservationDatum.ProvinceState,
+                Country = covidObservationDatum.Country,
+                LastUpdate = covidObservationDatum.LastUpdate,
+                Confirmed = covidObservationDatum.Confirmed,
+                Deaths = covidObservationDatum.Deaths,
+                Recovered = covidObservationDatum.Recovered
+            };
+
+            return entity;
+        }
+
+        public IEnumerable<CovidObservationDatum> ToObservationCollection(IEnumerable<CovidObservationDatumInputDto> observationCollection)
+        {
+            var observationList = new List<CovidObservationDatum>();
+
+            foreach(var item in observationCollection)
+            {
+                var entity = new CovidObservationDatum()
+                {
+                    ObservationDate = item.ObservationDate,
+                    ProvinceState = item.ProvinceState,
+                    Country = item.Country,
+                    LastUpdate = item.LastUpdate,
+                    Confirmed = item.Confirmed,
+                    Deaths = item.Deaths,
+                    Recovered = item.Recovered
+                };
+
+                observationList.Add(entity);
+            }
+
+            return observationList;
         }
     }
 }

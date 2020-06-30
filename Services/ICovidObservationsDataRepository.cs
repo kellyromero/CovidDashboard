@@ -1,4 +1,5 @@
 ﻿using CovidDashboard.Entities;
+using CovidDashboard.ResourceParameters;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,16 @@ namespace CovidDashboard.Services
     {
         IEnumerable<CovidObservationDatum> GetTopConfirmed();
 
-        IEnumerable<CovidObservationDatum> GetTopConfirmed(int? numberOfItemsToDisplay, DateTime? observationDate);
+        IEnumerable<CovidObservationDatum> GetTopConfirmed(CovidDashboardResourceParameters resourceParameters);
+
+        void AddCovidObservationsDatum(CovidObservationDatum covidObservationDatum);
+
+        bool Save();
+
+        CovidObservationDatum GetSpecificObservation(int observationDatumId);
+
+        void UpdateCaseData(CovidObservationDatum covidObservationDatum);
+
+        bool caseDataExists(int caseId);
     }
 }
